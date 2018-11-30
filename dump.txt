@@ -1,0 +1,2 @@
+m_comboBox3Choices = data_barang
+self.m_comboBox3 = PromptingComboBox(sbSizer3.GetStaticBox(), "default value", m_comboBox3Choices, style=wx.CB_SORT)
