@@ -1,6 +1,4 @@
-import Connector
-import wx
-import EventHandler
+
 
 databaseSumber = "db_supermarket"
 databaseDimensional = "db_dimensional"
@@ -8,11 +6,8 @@ databaseDimensional = "db_dimensional"
 
 class MyEtl():
 
-    def __init__(self,ds,dm,dbDimen):
 
-        self.main(ds,dm,dbDimen)
-
-    #======================== LIST EXTRACT TRANSFORM DATA ========================#
+    #======================== LIST EXTRACT TRANSFORM DATA ==============    ==========#
     qBarang = "SELECT id_barang,tb_kategori_barang.nama_kat_brg,nama_barang " \
               "FROM tb_barang INNER JOIN tb_kategori_barang ON tb_barang.id_kat_brg = tb_kategori_barang.id_kat_brg"
 
@@ -61,7 +56,7 @@ class MyEtl():
 
     qInsertCabang = "INSERT INTO tb_dimensi_cabang(id_cabang,nama_cabang, alamat_kab_prov) VALUES('%i','%s','%s');"
 
-    qInsertBulan = "INSERT INTO tb_dimensi_bulan VALUES('%i','%s');"
+    qInsertBulan = "INSERT INTO tb_dimensi_bulan VALUES('%s');"
 
     qInsertTransaksi = "INSERT INTO tb_dimensi_transaksi(id_transaksi,id_user,id_detail_transaksi,id_barang,harga_barang,jmlh_brg,id_cabang,id_pegawai,tgl_transaksi) " \
                        "VALUES('%i','%i','%i','%i','%2.f','%i','%i','%i','%s');"
@@ -81,7 +76,16 @@ class MyEtl():
     qInsertFaktaTransaksiTahunPerCabang = "INSERT INTO tb_fakta_trans_tahun(id_cabang,tahun,total_trans) VALUES('%i','%i','%f')"
     #==================================================================================================================================#
 
-    qTruncateData = "SELECT CONCAT('TRUNCATE TABLE ', TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'db_dimensional';"
+    qTruncateData = "SELECT CONCAT('TRUNCATE TABLE ', TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'db_dimensional' "\
+                    "AND TABLE_NAME NOT IN (SELECT 'tb_dimensi_barang' UNION SELECT 'tb_dimensi_cabang' UNION SELECT 'tb_dimensi_bulan' "\
+                    "UNION SELECT 'tb_dimensi_customer' UNION SELECT 'tb_dimensi_pegawai' UNION SELECT 'tb_dimensi_transaksi');"
+
+    qSelectBulan = 'SELECT "januari" AS bulan UNION SELECT "februari" UNION SELECT "maret" UNION SELECT "april" '\
+                    'UNION SELECT "mei" UNION SELECT "juni" UNION SELECT "juli" UNION SELECT "agustus" '\
+                    'UNION SELECT "september" UNION SELECT "oktober" '\
+                    'UNION SELECT "november" '\
+                    'UNION SELECT "desember" '
+
     def generate_tb_bulan(self,dm, dbdimen, query):
 
         with open('bulan.txt', 'r') as f:

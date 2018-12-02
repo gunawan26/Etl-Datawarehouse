@@ -66,7 +66,7 @@ class DetailTransTahun(DatawarehouseGui.MyFrame4):
 class eventHandler(DatawarehouseGui.MyFrame1):
 
     def __init__(self,parent):
-        MyEtl(ds,dm,dbDimen)
+        #MyEtl(ds,dm,dbDimen)
         list_bulan = []
         list_cabang = []
 
