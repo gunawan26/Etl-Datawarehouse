@@ -4,9 +4,12 @@
     <list default="true" id="a19f51e4-9fca-4541-98cf-17bdcd56473f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWarehouse_view.fbp" beforeDir="false" afterPath="$PROJECT_DIR$/DataWarehouse_view.fbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatawarehouseGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatawarehouseGui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EventHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/EventHandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExtractDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExtractDatabase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UpdateConfiguration.py" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateConfiguration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bulan.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,53 +21,59 @@
     <session id="-704008564">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
-          <entry key="project.open.time.0" value="3" />
-          <entry key="project.open.time.1" value="7" />
+          <entry key="project.closed" value="37" />
+          <entry key="project.open.time.0" value="4" />
+          <entry key="project.open.time.1" value="9" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.14" value="2" />
-          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.11" value="2" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="5" />
+          <entry key="project.open.time.14" value="3" />
+          <entry key="project.open.time.15" value="3" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.17" value="5" />
-          <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.19" value="2" />
+          <entry key="project.open.time.17" value="6" />
+          <entry key="project.open.time.18" value="5" />
+          <entry key="project.open.time.19" value="4" />
           <entry key="project.open.time.2" value="3" />
-          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.20" value="3" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.27" value="1" />
-          <entry key="project.open.time.3" value="3" />
+          <entry key="project.open.time.3" value="4" />
           <entry key="project.open.time.32" value="1" />
-          <entry key="project.open.time.4" value="4" />
-          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.4" value="5" />
+          <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="43" />
+          <entry key="project.open.time.8" value="3" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="72" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="52" />
-          <entry key="txt" value="2" />
+          <entry key="json" value="1" />
+          <entry key="py" value="65" />
+          <entry key="txt" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="52" />
+          <entry key="JSON" value="1" />
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="Python" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="25" />
-          <entry key="py" value="18423" />
+          <entry key="py" value="26536" />
           <entry key="txt" value="131" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="156" />
-          <entry key="Python" value="18423" />
+          <entry key="Python" value="26536" />
         </counts>
       </usages-collector>
     </session>
@@ -73,21 +82,16 @@
     <favorites_list name="DataWarehouse" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.13813615">
+    <splitter split-orientation="horizontal" split-proportion="0.5128883">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/EventHandler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3043">
-                  <caret line="230" column="30" selection-start-line="230" selection-start-column="30" selection-end-line="230" selection-end-column="30" />
+                <state relative-caret-position="150">
+                  <caret line="287" column="23" selection-start-line="287" selection-start-column="23" selection-end-line="287" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
-                    <marker date="1543580182917" expanded="true" signature="1802:2477" ph="..." />
-                    <marker date="1543580182917" expanded="true" signature="2474:2477" ph="..." />
-                    <marker date="1543580182917" expanded="false" signature="3687:4932" ph="..." />
-                    <marker date="1543580182917" expanded="false" signature="6468:6713" ph="..." />
-                    <marker date="1543580182917" expanded="true" signature="7537:8016" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -96,67 +100,52 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="22" selection-start-line="22" selection-end-line="22" />
+                <state relative-caret-position="102">
+                  <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/err.py">
+            <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="391">
-                  <caret line="108" selection-start-line="108" selection-end-line="108" />
+                <state relative-caret-position="417">
+                  <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/protocol.py">
+            <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/152262123/wx/_core/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3587">
-                  <caret line="219" selection-start-line="219" selection-end-line="219" />
+                <state>
+                  <caret line="1163" selection-start-line="1163" selection-end-line="1163" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/connections.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="515" selection-start-line="515" selection-end-line="515" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Connector.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="15" selection-start-line="15" selection-end-line="15" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/cursors.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1143">
-                  <caret line="169" selection-start-line="169" selection-end-line="169" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ExtractDatabase.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="52" selection-start-line="52" selection-end-line="53" />
+                <state>
+                  <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
                   <folding>
-                    <marker date="1543668111882" expanded="true" signature="93:98" ph="..." />
-                    <marker date="1543668111882" expanded="true" signature="5256:5257" ph="..." />
-                    <marker date="1543668111882" expanded="true" signature="6746:6748" ph="..." />
-                    <marker date="1543668111882" expanded="true" signature="6781:6782" ph="..." />
+                    <marker date="1544346115154" expanded="true" signature="93:98" ph="..." />
+                    <marker date="1544346115154" expanded="true" signature="5245:5246" ph="..." />
+                    <marker date="1544346115154" expanded="true" signature="6795:6797" ph="..." />
+                    <marker date="1544346115154" expanded="true" signature="6832:6833" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret line="14" selection-start-line="14" selection-end-line="14" />
+                  <folding>
+                    <element signature="e#0#15#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -164,18 +153,23 @@
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CustomComboBox.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="9" selection-start-column="9" selection-end-column="9" />
-                </state>
-              </provider>
+              <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="918">
-                  <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="18" />
+                <state>
+                  <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dump.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
                 </state>
               </provider>
             </entry>
@@ -184,46 +178,16 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/EventHandler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-935">
-                  <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+                <state relative-caret-position="102">
+                  <caret line="288" column="93" lean-forward="true" selection-start-line="288" selection-start-column="93" selection-end-line="288" selection-end-column="93" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
-                    <marker date="1543580182917" expanded="true" signature="1802:2477" ph="..." />
-                    <marker date="1543580182917" expanded="true" signature="2474:2477" ph="..." />
-                    <marker date="1543580182917" expanded="false" signature="3687:4932" ph="..." />
-                    <marker date="1543580182917" expanded="false" signature="6468:6713" ph="..." />
-                    <marker date="1543580182917" expanded="true" signature="7537:8016" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="6528">
-                  <caret line="386" column="59" selection-start-line="386" selection-start-column="59" selection-end-line="386" selection-end-column="59" />
-                  <folding>
-                    <element signature="e#316#325#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
-                  <folding>
-                    <element signature="e#0#33#0" expanded="true" />
-                    <marker date="1543736649352" expanded="true" signature="1057:1058" ph="..." />
-                    <marker date="1543736649352" expanded="true" signature="1057:1063" ph="..." />
-                    <marker date="1543736649352" expanded="true" signature="1198:1203" ph="..." />
-                    <marker date="1543736649352" expanded="true" signature="2755:2760" ph="..." />
+                    <element signature="e#749#1217#0" />
+                    <element signature="e#1239#1600#0" />
+                    <element signature="e#1620#2112#0" />
                   </folding>
                 </state>
               </provider>
@@ -252,6 +216,12 @@
       <find>wizard</find>
       <find>&quot;1&quot;,&quot;2018&quot;</find>
       <find>fetchon</find>
+      <find>batc</find>
+      <find>etl</find>
+      <find>com</find>
+      <find>PromptingComboBox</find>
+      <find>bSizer51</find>
+      <find>get_tab</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -266,21 +236,21 @@
         <option value="$PROJECT_DIR$/venv/EventHandler.py" />
         <option value="$PROJECT_DIR$/bulan.txt" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/CustomComboBox.py" />
         <option value="$PROJECT_DIR$/dump.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/DatawarehouseGui.py" />
         <option value="$PROJECT_DIR$/ddd.py" />
-        <option value="$PROJECT_DIR$/EventHandler.py" />
-        <option value="$PROJECT_DIR$/ExtractDatabase.py" />
+        <option value="$PROJECT_DIR$/DatawarehouseGui.py" />
+        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/UpdateConfiguration.py" />
+        <option value="$PROJECT_DIR$/CustomComboBox.py" />
+        <option value="$PROJECT_DIR$/ExtractDatabase.py" />
+        <option value="$PROJECT_DIR$/EventHandler.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="951" />
-    <option name="width" value="978" />
-    <option name="height" value="1089" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -288,6 +258,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,11 +266,14 @@
               <item name="DataWarehouse" type="b2602c69:ProjectViewProjectNode" />
               <item name="DataWarehouse" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DataWarehouse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,7 +292,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.UpdateConfiguration">
+  <component name="RunManager" selected="Python.main">
     <configuration name="ExtractDatabase" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="DataWarehouse" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -433,9 +407,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.UpdateConfiguration" />
         <item itemvalue="Python.ddd" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.ExtractDatabase" />
         <item itemvalue="Python.test" />
       </list>
@@ -456,8 +430,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4965035" visible="true" weight="0.0" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.5034965" side_tool="true" weight="0.1354924" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33020133" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32885906" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4965035" visible="true" weight="0.0" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5034965" side_tool="true" weight="0.1354924" />
@@ -475,47 +467,30 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.0" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24697986" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32885906" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="python-exception">
+          <properties notifyOnlyOnFirst="true" notifyOnTerminate="true" ignoreLibraries="true" exception="BaseException">
+            <option name="ignoreLibraries" value="true" />
+            <option name="notifyOnTerminate" value="true" />
+            <option name="notifyOnlyOnFirst" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/venv/EventHandler.py" />
     <entry file="file://$PROJECT_DIR$/noname.py" />
-    <entry file="file://$PROJECT_DIR$/test2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bulan.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/wx/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23341">
@@ -530,24 +505,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ddd.py">
+    <entry file="file://$PROJECT_DIR$/ddd.py" />
+    <entry file="file://$PROJECT_DIR$/unlimited2.json" />
+    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/err.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dump.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="116" selection-start-line="1" selection-start-column="116" selection-end-line="1" selection-end-column="116" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="1802">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
         </state>
       </provider>
     </entry>
@@ -558,6 +521,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/connections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8347">
+          <caret line="515" selection-start-line="515" selection-end-line="515" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/cursors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2.py" />
+    <entry file="file://$PROJECT_DIR$/bulan.txt" />
     <entry file="file://$PROJECT_DIR$/Connector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -565,89 +544,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CustomComboBox.py">
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/152262123/wx/_core/UpdateUIEvent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/search-tweets-python-master/search-tweets-python-master/setup.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/152262123/wx/_core/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="9" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/EventHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-935">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1543580182917" expanded="true" signature="1802:2477" ph="..." />
-            <marker date="1543580182917" expanded="true" signature="2474:2477" ph="..." />
-            <marker date="1543580182917" expanded="false" signature="3687:4932" ph="..." />
-            <marker date="1543580182917" expanded="false" signature="6468:6713" ph="..." />
-            <marker date="1543580182917" expanded="true" signature="7537:8016" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6528">
-          <caret line="386" column="59" selection-start-line="386" selection-start-column="59" selection-end-line="386" selection-end-column="59" />
-          <folding>
-            <element signature="e#316#325#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/connections.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="515" selection-start-line="515" selection-end-line="515" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/err.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/pymysql/cursors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1143">
-          <caret line="169" selection-start-line="169" selection-end-line="169" />
+          <caret line="1163" selection-start-line="1163" selection-end-line="1163" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ExtractDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="52" selection-start-line="52" selection-end-line="53" />
+        <state>
+          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
           <folding>
-            <marker date="1543668111882" expanded="true" signature="93:98" ph="..." />
-            <marker date="1543668111882" expanded="true" signature="5256:5257" ph="..." />
-            <marker date="1543668111882" expanded="true" signature="6746:6748" ph="..." />
-            <marker date="1543668111882" expanded="true" signature="6781:6782" ph="..." />
+            <marker date="1544346115154" expanded="true" signature="93:98" ph="..." />
+            <marker date="1544346115154" expanded="true" signature="5245:5246" ph="..." />
+            <marker date="1544346115154" expanded="true" signature="6795:6797" ph="..." />
+            <marker date="1544346115154" expanded="true" signature="6832:6833" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
+        <state>
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
-            <marker date="1543736649352" expanded="true" signature="1057:1058" ph="..." />
-            <marker date="1543736649352" expanded="true" signature="1057:1063" ph="..." />
-            <marker date="1543736649352" expanded="true" signature="1198:1203" ph="..." />
-            <marker date="1543736649352" expanded="true" signature="2755:2760" ph="..." />
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CustomComboBox.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dump.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EventHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="287" column="23" selection-start-line="287" selection-start-column="23" selection-end-line="287" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

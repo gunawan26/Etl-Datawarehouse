@@ -1,14 +1,20 @@
 import wx
 import DatawarehouseGui
 import Connector
-from ExtractDatabase import MyEtl
 import wx.dataview
+from UpdateConfiguration import UpdateConfig
+
+
 databaseDimensional = "db_dimensional"
 databaseSumber = "db_supermarket"
+
+
 dbSource = Connector.sql_connect(databaseSumber)  # melakukan koneksi ke database source
 ds = dbSource.cursor()  # membuat kursor untuk melakukan eksekusi
 dbDimen = Connector.sql_connect(databaseDimensional)
 dm = dbDimen.cursor()
+connection_to_config = Connector.sql_connect('db_config_data_w')
+config = connection_to_config.cursor()
 
 
 
@@ -19,7 +25,21 @@ qSearchdataFakta = 'SELECT tb_dimensi_barang.`nama_barang`,tb_dimensi_bulan.`nam
                    'FROM tb_fakta_trans_barang ' \
                    'INNER JOIN tb_dimensi_barang USING(id_barang) ' \
                    'INNER JOIN tb_dimensi_bulan USING (id_bulan) ' \
-                   'INNER JOIN tb_dimensi_cabang USING (id_cabang) '
+                   'INNER JOIN tb_dimensi_cabang USING (id_cabang)'
+
+qSearchBulanFakta = 'SELECT tahun,tb_dimensi_bulan.`nama_bulan`,tb_dimensi_cabang.`nama_cabang`,SUM(total_pendapatan) '\
+                    'FROM tb_fakta_trans_barang  '\
+                    'INNER JOIN tb_dimensi_cabang USING (id_cabang) '\
+                    'INNER JOIN tb_dimensi_bulan USING (id_bulan) '\
+                    'GROUP BY id_cabang,id_bulan ORDER BY id_cabang'
+
+
+qCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer`,tb_dimensi_bulan.`nama_bulan`,tb_dimensi_barang.`nama_barang`,tahun,tb_dimensi_cabang.`nama_cabang`,total_belanja '\
+                    'FROM tb_fakta_customer '\
+                    'INNER JOIN tb_dimensi_customer USING (id_customer) '\
+                    'INNER JOIN tb_dimensi_barang USING (id_barang) '\
+                    'INNER JOIN tb_dimensi_bulan USING (id_bulan) '\
+                    'INNER JOIN tb_dimensi_cabang USING (id_cabang) '
 
 qListBulan = 'SELECT nama_bulan FROM tb_dimensi_bulan'
 
@@ -35,6 +55,25 @@ qResultCabangById = "SELECT tahun,tb_dimensi_barang.`nama_barang`, tb_dimensi_ca
                     "WHERE id_cabang = %d "
 
 
+
+class DetailBulan(DatawarehouseGui.detail_bln_frame):
+
+    def __init__(self,result_final_bln):
+        DatawarehouseGui.detail_bln_frame.__init__(self,parent=None)
+        print("open panel detail")
+        for x,item in enumerate(result_final_bln,start=1):
+            new_val = list(item)
+            new_val.insert(0, x)
+            self.m_dataViewList_penjualan_bln.AppendItem(new_val)
+            self.Exit_det_bln.Bind(wx.EVT_BUTTON,self.onExit)
+
+        self.Show()
+
+    def onExit(self,event):
+        self.Close(force=False)
+
+
+#===============================================================================================#
 class EventErrorDialog(DatawarehouseGui.error_Dialog_1):
 
     def __init__(self,parent):
@@ -42,21 +81,89 @@ class EventErrorDialog(DatawarehouseGui.error_Dialog_1):
         self.Show()
 
 
+#================================ Menu option untuk proses ETL =============================#
+class MenuOption(DatawarehouseGui.Etl_setting):
+
+
+    def __init__(self,parent,evt_handler):
+        DatawarehouseGui.Etl_setting.__init__(self,parent)
+        #self.Show()
+        #self.load_detail_info(dm,ds)
+        self.Bind(wx.EVT_BUTTON,lambda event:self.on_update(event,evt_handler),self.update_btn)
+        self.load_detail_info(dm,ds)
+        self.Cancel_btn_etl.Bind(wx.EVT_BUTTON,self.on_exit)
+        #self.Bind(wx.EVT_UPDATE_UI,lambda event:eventHandler.onreload_daftar_trans_tahun(ev,dm,qListTahun),self.update_btn)
+        #self.update_btn.Bind(wx.UPDATE_UI_PROCESS_ALL,self.on_update)
+
+    def load_detail_info(self,dm,ds):
+
+        up_conf = UpdateConfig(connection_to_config, config, dbDimen, dm, dbSource, ds)
+        val_data  = up_conf.update_val(dm,ds)
+        counter = 0
+        value_information = up_conf.get_last_update(config)
+        # if bool(val_data):
+        #    print("isi")
+        # else:
+        #     empty_val = [" ","Data Dimensi Sudah Terbaru"," "]
+        #     print("masuk, kosong")
+        #     self.m_dataViewEtl.AppendItem(empty_val)
+        self.m_last_update_val.SetLabelText(value_information[0])
+        self.m_batch_val.SetLabelText(str(value_information[1]))
+
+        for key,val in val_data.items():
+            counter+=1
+            data = [counter,key,val]
+            self.m_dataViewEtl.AppendItem(data)
+
+
+    def on_update(self,event,evt_handler):
+        id = event.GetId()
+        print(id)
+        up_conf2 = UpdateConfig(connection_to_config, config, dbDimen, dm, dbSource, ds)
+        val = up_conf2.on_update(ds,dm,dbDimen,config)
+        if val is True:
+            wx.MessageBox('Database sudah Paling Baru', 'Sukses', wx.OK)
+
+        else:
+            eventHandler.onreload_daftar_trans_tahun(evt_handler, dm, qListTahun)
+            eventHandler.on_reload_tb_fakta_penjualan(evt_handler,dm, qSearchBulanFakta)
+            eventHandler.on_reload_daftar_trans_customer(evt_handler,dm,qCustomerFakta)
+            wx.MessageBox('Database berhasil di Perbaharui', 'Sukses', wx.OK)
+        print("update successful")
+
+
+    def on_exit(self,event):
+        print("close the app")
+        self.Close(force=False)
+
+
+#================================ Detail Transaksi tahun =============================#
 class DetailTransTahun(DatawarehouseGui.MyFrame4):
 
     def __init__(self,parent,result_final):
         DatawarehouseGui.MyFrame4.__init__(self,parent)
+        self.show_transaksi_tahunan(result_final)
+        self.Show()
+        self.Exit_det.Bind(wx.EVT_BUTTON, self.exit_page)
+
+
+    def show_transaksi_tahunan(self,result_final):
 
         for x,item in enumerate(result_final,start=1):
             new_val = list(item)
             new_val.insert(0,x)
 
             self.m_dataViewList_penjualan_tahunan.AppendItem(new_val)
-            self.Exit_det.Bind(wx.EVT_BUTTON,self.exit_page)
             print(str(new_val))
 
+        pass
 
-        self.Show()
+
+    def reload_transaksi_tahunan(self,result_final):
+        self.m_dataViewList_penjualan_tahunan.DeleteAllItems()
+        self.show_transaksi_tahunan(result_final)
+        pass
+
 
     def exit_page(self,event):
         print("close the panel")
@@ -71,48 +178,68 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         list_cabang = []
 
         DatawarehouseGui.MyFrame1.__init__(self,parent)
-        self.tampil_tb_fakta_penjualan(dm,qSearchdataFakta)
+
+        """Report Untuk Transaksi Bulanan"""
+        self.tampil_tb_fakta_penjualan(dm,qSearchBulanFakta)
         bulan = self.list_bulan(dm,qListBulan)
         list_cabang = (self.return_list(dm,qListCabang))
-        list_cabang.insert(0,"-")
+        list_cabang.insert(0,"Semua-Cabang")
         self.m_choice2.Set(list_cabang)
 
-        #self.search_tb_fakta_penjualan(dm,"oreo","oktober","cabang 1",qListTahun)
+        """Report untuk Transaksi Tahun"""
         self.daftar_trans_tahun(dm,qListTahun)
+        self.daftar_transaksi_customer(dm,qCustomerFakta)
         #self.m_comboBox3 = PromptingComboBox(self,"default value",dummy,style=wx.CB_SORT)
         #self.bSizer51.Add( self.m_comboBox31, 0, wx.ALL, 5 )
 
         self.Bind(wx.EVT_BUTTON, lambda event: self.onclick_cari_laporan_tahunan(event, dm, qListTahun),
                   self.cari_penjualan_tahun)
 
-        self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, lambda event:self.onClickrow_trans_tahun(event,dm,qCariCabang))
+        self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, lambda event:self.onClickrow_trans_tahun(event,dm,qCariCabang),self.m_dataViewList_penjualan_tahunan)
+        self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED,
+                  lambda event: self.onClickrow_trans_bulan(event, dm, qCariCabang),
+                  self.m_dataViewList_trans_bulan)
 
         self.cari_button.Bind(wx.EVT_BUTTON, lambda event:self.search_tb_fakta_penjualan(event,dm,qSearchdataFakta))
 
+        self.Bind(wx.EVT_MENU,self.on_open_etlmenu,self.etl_menu)
+        self.Bind(wx.EVT_MENU,lambda event :self.on_exit(event),self.m_menuItem_exit)
+        #=====================custom combo box==========================#
+
         pass
 
+    def on_exit(self,event):
 
+        dlg = wx.MessageBox("Apakah Anda Yakin Ingin Keluar","info",wx.ICON_INFORMATION | wx.YES_NO)
+
+        if dlg == 2:
+            print("masuk")
+            self.Close(force=False)
+
+        pass
     def onclick_cari_laporan_tahunan(self,event,cur,query_args):
         query = []
         tahun_start_param = self.m_text_thn_start.GetValue()
         tahun_end_param = self.m_text_thn_end.GetValue()
+        error_result = False
 
         cabang_param = self.m_choice2.GetString(self.m_choice2.GetCurrentSelection())
         print("masuk")
-        if tahun_start_param == "" or tahun_end_param == " ":
-            EventErrorDialog(None)
+        if tahun_start_param == "" or tahun_end_param == "":
+            wx.MessageBox('Input Tahun Tidak Lengkap', 'Warning', wx.OK | wx.ICON_WARNING)
+            error_result = True
+
         else:
             query.append("tahun BETWEEN {0} AND {1} ".format(int(tahun_start_param),int(tahun_end_param)))
+            if cabang_param == "" or cabang_param == "":
+                wx.MessageBox('Pilih Cabang Yang Ingin Dipilih', 'Warning', wx.OK | wx.ICON_WARNING)
+                error_result = True
+            else:
+                if(cabang_param != 'Semua-Cabang'):
+                    query.append(" tb_dimensi_cabang.`nama_cabang` = '{0}'".format(cabang_param))
 
 
-        if cabang_param == "" or cabang_param == " ":
-            EventErrorDialog(None)
-
-        else:
-            if(cabang_param != '-'):
-                query.append(" tb_dimensi_cabang.`nama_cabang` = '{0}'".format(cabang_param))
-
-        if(len(query)>0):
+        if(len(query)>0 and error_result == False):
 
             query.insert(0,"where ")
             q_final = self.merge_query(query_args, query)
@@ -130,6 +257,7 @@ class eventHandler(DatawarehouseGui.MyFrame1):
 
 
     def tampil_tb_fakta_penjualan(self,cur, query_args):
+
         cur.execute(query_args)
         val = cur
         for i,item in enumerate(val.fetchall(),start=1):
@@ -139,6 +267,10 @@ class eventHandler(DatawarehouseGui.MyFrame1):
             print(x)
             self.m_dataViewList_trans_bulan.AppendItem(x)
 
+    def on_reload_tb_fakta_penjualan(self,cur,query_args):
+
+        self.m_dataViewList_trans_bulan.DeleteAllItems()
+        self.tampil_tb_fakta_penjualan(cur,query_args)
 
 
 
@@ -146,13 +278,17 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         query = []
         print("masuk ke button search")
 
-        nama_brg_args = self.m_cariBrg_combo.GetValue()
         bulan_args = self.m_combo_bln.GetValue()
         thn_args =self.m_thn_combo.GetValue()
 
+        if bulan_args == "":
+            wx.MessageBox('Input Bulan Tidak Lengkap', 'Warning', wx.OK | wx.ICON_WARNING)
 
-        if nama_brg_args != "":
-            query.append("tb_dimensi_barang.nama_barang = '%s'"%nama_brg_args)
+        else:
+            if thn_args == "":
+                wx.MessageBox('Input Tahun Tidak Lengkap', 'Warning', wx.OK | wx.ICON_WARNING)
+        #if nama_brg_args != "":
+        #    query.append("tb_dimensi_barang.nama_barang = '%s'"%nama_brg_args)
 
         if bulan_args != "":
             query.append("tb_dimensi_bulan.nama_bulan= '%s'"%bulan_args)
@@ -163,7 +299,7 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         if len(query) > 0:
             query.insert(0,"where ")
             q_final = self.merge_query(query_args, query)
-
+            print(q_final)
             cur.execute(q_final)
             final_val = cur
             print(q_final)
@@ -194,30 +330,61 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         cur.execute(query_args)
         x = cur
         val=[]
-
-        #print(list(x.fetchall()))
-
         for i,item in enumerate(x.fetchall(),start=1):
-
             val.append(''.join(item))
-            #print(item)
-
         return val
 
 
     def daftar_trans_tahun(self,cursor,query_args):
         cursor.execute(query_args)
         val = cursor
-        btn = wx.Button(self.m_dataViewList_penjualan_tahunan, -1, "Pause " + str(1))
-        btn.Bind(wx.EVT_BUTTON, lambda event, temp=1: self.onClickrow_trans_tahun(event))
+        # btn = wx.Button(self.m_dataViewList_penjualan_tahunan, -1, "Pause " + str(1))
+        # btn.Bind(wx.EVT_BUTTON, lambda event, temp=1: self.onClickrow_trans_tahun(event))
         for x,item in enumerate(val,start=1):
-
+            print(item)
 
             list_item = list(item)
             list_item.insert(0,x)
-
             self.m_dataViewList_penjualan_tahunan.AppendItem(list_item)
 
+        pass
+
+    def onreload_daftar_trans_tahun(self,cursor,query_args):
+#        print(event.GetId())
+
+        cursor.execute(query_args)
+        val = cursor
+        print("masuk kesini pak eko")
+        # btn = wx.Button(self.m_dataViewList_penjualan_tahunan, -1, "Pause " + str(1))
+        # btn.Bind(wx.EVT_BUTTON, lambda event, temp=1: self.onClickrow_trans_tahun(event))
+        self.m_dataViewList_penjualan_tahunan.DeleteAllItems()
+        for x,item in enumerate(val,start=1):
+
+            print("apakah masuk")
+            list_item = list(item)
+            list_item.insert(0,x)
+            self.m_dataViewList_penjualan_tahunan.AppendItem(list_item)
+
+        pass
+
+    def daftar_transaksi_customer(self,cursor,query_args):
+        cursor.execute(query_args)
+        val = cursor
+        # btn = wx.Button(self.m_dataViewList_penjualan_tahunan, -1, "Pause " + str(1))
+        # btn.Bind(wx.EVT_BUTTON, lambda event, temp=1: self.onClickrow_trans_tahun(event))
+        for x,item in enumerate(val,start=1):
+            print(item)
+
+            list_item = list(item)
+            list_item.insert(0,x)
+            self.m_dataViewList_customer.AppendItem(list_item)
+
+        pass
+
+
+    def on_reload_daftar_trans_customer(self,cursor,query_args):
+        self.m_dataViewList_customer.DeleteAllItems()
+        self.daftar_transaksi_customer(cursor,query_args)
         pass
 
 
@@ -235,6 +402,25 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         DetailTransTahun(None,result_final)
 
 
+    def onClickrow_trans_bulan(self,event,cursor,query):
+
+        val = self.m_dataViewList_trans_bulan.GetSelectedRow()
+        thn = self.m_dataViewList_trans_bulan.GetValue(val,1)
+        bln = self.m_dataViewList_trans_bulan.GetValue(val,2)
+        cabang = self.m_dataViewList_trans_bulan.GetValue(val,3)
+        print(qSearchdataFakta.format(thn,bln,cabang))
+        cursor.execute(qSearchdataFakta.format(thn,bln,cabang))
+        val_cur = cursor
+
+        return_val = val_cur.fetchall()
+
+        bln = DetailBulan(return_val)
+
+
+
+        pass
+
+
     def return_list(self,cur,list_q):
         list_val = []
         cur.execute(list_q)
@@ -243,6 +429,10 @@ class eventHandler(DatawarehouseGui.MyFrame1):
             list_val.append(''.join(x))
         return list_val
 
+
+    def on_open_etlmenu(self,event):
+        m_option = MenuOption(None,self)
+        m_option.Show()
 
 
 

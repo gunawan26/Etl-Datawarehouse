@@ -1,28 +1,15 @@
-from Connector import sql_connect
 import datetime
 from ExtractDatabase import MyEtl
-
-connection_to_config = sql_connect('db_config_data_w')
-config = connection_to_config.cursor()
-connection_to_dimen = sql_connect('db_dimensional')
-dimen = connection_to_dimen.cursor()
-connection_to_source = sql_connect('db_supermarket')
-source = connection_to_source.cursor()
 
 
 qCountTableDimensional = "SELECT count(*) from information_schema.TABLES where TABLE_SCHEMA = 'db_dimensional'"
 qCountTableConfig = "SELECT COUNT(*) FROM tb_info_table"
-
 qGetTableDimensional = "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'db_dimensional' "
-
 qInsertTableConfig = "INSERT INTO tb_info_table(nama_table) VALUES('%s')"
-
 qInsertUpdateLog = "INSERT INTO update_log(update_date,batch) VALUES('{0}',{1})"
-
+qInsertdetailConfig = "INSERT INTO tb_detail_update VALUES(NULL,{0},'{1}',{2},{3},{4})"
 #==============BATCH INFO UPDATE TABLE===============#
-qGetBatchInfo = "SELECT COUNT(*) FROM update_log"
-qGEtTimeNow = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-
+qGetBatchInfo = "SELECT MAX(batch) FROM update_log"
 
 #================== Analyze Table====================#
 
@@ -30,40 +17,16 @@ qGEtTimeNow = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 class UpdateConfig:
 
-    def __init__(self):
-        self.get_table_from_dimen()
-        self.on_update(source,dimen,connection_to_dimen,config)
+    def __init__(self,connection_to_config,config,connection_to_dimen,dimen,connection_to_source,source):
+        self.connection_to_config = connection_to_config
+        self.config = config
+        self.connection_to_dimen = connection_to_dimen
+        self.dimen = dimen
+        self.connection_to_source = connection_to_source
+        self.source = source
+
+        #self.on_update(source,dimen,connection_to_dimen,config)
         pass
-
-
-
-    def get_table_from_dimen(self):
-
-        dimen.execute(qCountTableDimensional)
-        config.execute(qCountTableConfig)
-        count_table_dimen = dimen.fetchone()
-        count_table_config = config.fetchone()
-        count_table_dimen = int(count_table_dimen[0])
-        count_table_config = int(count_table_config[0 ])
-
-
-        if count_table_dimen > count_table_config:
-            dimen.execute(qGetTableDimensional)
-
-            val = dimen
-
-            for x in val.fetchall():
-                val_table = "".join(x)
-                print(val_table)
-                config.execute(qInsertTableConfig%val_table)
-                connection_to_config.commit()
-        else:
-            print("banyak tabel  sudah up todated")
-
-
-
-        pass
-
 
     def get_max(self,db_source_args,table_name_args,id_name_args):
         qMax = "SELECT MAX({0}) AS max_id FROM {1}".format(id_name_args,table_name_args)
@@ -93,14 +56,24 @@ class UpdateConfig:
 
 
     def on_update(self,ds,dm,dbdimen,dconfig):
+        global  uptodate_info
+        global counter_update
+        global qGEtTimeNow
+        global last_id_config
+
+        last_id_config = 0
+
+        qGEtTimeNow = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+
+        counter_update = 0
         uptodate_info = True
         etl = MyEtl()
         dconfig.execute("SELECT MAX(batch) FROM update_log")
         val = dconfig.fetchone()
 
         dm.execute("SELECT COUNT(*) FROM tb_dimensi_bulan")
-        count_bulan = dm.fetchone()
-
+        count_bulan_val = dm.fetchone()
+        count_bulan = count_bulan_val[0]
         my_val = val[0]
 
         if my_val is None:
@@ -108,8 +81,7 @@ class UpdateConfig:
         else:
             my_val+=1
 
-        dconfig.execute(qInsertUpdateLog.format(qGEtTimeNow,my_val))
-        print(qInsertUpdateLog.format(qGEtTimeNow,my_val))
+
 
         get_max_tb_brg = self.get_max(ds,"tb_barang","id_barang")
         get_max_det_trans = self.get_max(ds,"tb_detail_transaksi","id_detail_trans")
@@ -133,64 +105,20 @@ class UpdateConfig:
 
 
         if count_bulan == 0:
-            etl.tableSourceToDestination(dm, dm ,dbdimen, etl.qSelectBulan,etl.qSelectBulan)
+            etl.tableSourceToDestination(dm, dm ,dbdimen, etl.qSelectBulan,etl.qInsertBulan)
             print("successful insert table dimensi bulan")
 
-        if get_max_customer > get_max_dimensi_customer:
-            if getmin_dimensi_customer == 0:
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qCustomer, etl.qInsertCustomer)
-
-            else:
-                new_q_customer = self.where_q("id_customer",get_max_dimensi_customer)
-                etl.tableSourceToDestination(ds,dm,dbdimen,etl.qCustomer+new_q_customer,etl.qInsertCustomer)
-            uptodate_info = False
+        self.is_update(get_max_customer,get_max_dimensi_customer, getmin_dimensi_customer,ds,dm,dbdimen,etl.qCustomer,etl.qInsertCustomer,"id_customer","tb_dimensi_customer")
+        self.is_update(get_max_tb_brg,get_max_dimensi_brg, getmin_dimensi_barang,ds,dm,dbdimen,etl.qBarang,etl.qInsertBarang,"id_barang","tb_dimensi_barang")
+        self.is_update(get_max_pegawai,get_max_dimensi_pegawai, getmin_dimensi_pegawai,ds,dm,dbdimen,etl.qPegawai,etl.qInsertPegawai,"id_pegawai","tb_dimensi_pegawai")
+        self.is_update(get_max_cabang,get_max_dimensi_cabang, getmin_dimensi_cabang,ds,dm,dbdimen,etl.qCabang,etl.qInsertCabang,"id_cabang","tb_dimensi_cabang")
+        self.is_update(get_max_det_trans,get_max_dimensi_transaksi, getmin_dimensi_transaksi,ds,dm,dbdimen,etl.qTransaksi,etl.qInsertTransaksi,"id_detail_trans","tb_dimensi_transaksi")
 
 
-        if get_max_tb_brg > get_max_dimensi_brg:
-            if getmin_dimensi_barang == 0:
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qBarang, etl.qInsertBarang)
-
-            else:
-                new_q_brg = self.where_q("id_barang",int(get_max_dimensi_brg))
-                etl.tableSourceToDestination(ds,dm,dbdimen,etl.qBarang+new_q_brg,etl.qInsertBarang)
-                print("test")
-            uptodate_info = False
-
-
-        if get_max_pegawai > get_max_dimensi_pegawai:
-            if getmin_dimensi_cabang == 0:
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qPegawai, etl.qInsertPegawai)
-            else:
-                new_q_pegawai = self.where_q("id_pegawai",get_max_dimensi_pegawai)
-                etl.tableSourceToDestination(ds,dm,dbdimen,etl.qPegawai+new_q_pegawai,etl.qInsertPegawai)
-            uptodate_info = False
-
-
-        if get_max_cabang > get_max_dimensi_cabang:
-            if getmin_dimensi_cabang == 0:
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qCabang, etl.qInsertCabang)
-            else:
-                new_q_cabang = self.where_q("id_cabang",get_max_dimensi_cabang)
-                etl.tableSourceToDestination(ds,dm,dbdimen,etl.qCabang+new_q_cabang,etl.qInsertCabang)
-
-            uptodate_info = False
-
-
-        if get_max_det_trans > get_max_dimensi_transaksi:
-            if getmin_dimensi_transaksi == 0:
-
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qTransaksi, etl.qInsertTransaksi)
-
-            else:
-                new_q_trans = self.where_q("id_det_transaksi",get_max_dimensi_transaksi)
-                etl.tableSourceToDestination(ds, dm, dbdimen, etl.qTransaksi+new_q_trans,etl.qInsertTransaksi)
-
-            uptodate_info = False
-
-
+        print(uptodate_info)
         if uptodate_info == False:
             dm.execute("SET FOREIGN_KEY_CHECKS=0;")
-            print("masuk pak eko")
+            etl.truncateDatabase(dm,etl.qTruncateData)
             etl.tableSourceToDestination(dm,dm,dbdimen,etl.qDimensiTransBulan,etl.qInsertFaktaTransaksiBulan)
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransTahun, etl.qInsertFaktaTransaksiTahun)
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransCustomerBulan, etl.qInsertFaktaCustomer)
@@ -198,7 +126,103 @@ class UpdateConfig:
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransTahunPerCabang,etl.qInsertFaktaTransaksiTahunPerCabang)
             dbdimen.commit()
 
+        return uptodate_info
 
+
+    def is_update(self,max_source,max_dimens,min_dimens,ds_args,dm_args,db_dimen_args,etl_source_args,etl_insert_args,val_id_q,table_name):
+        global uptodate_info
+        global counter_update
+        global qGEtTimeNow
+        global last_id_config
+        global config
+        config = self.config
+        global connection_to_config
+        connection_to_config = self.connection_to_config
+        etl_new = MyEtl()
+        if max_source > max_dimens:
+            counter_update +=1
+            if min_dimens == 0:
+                etl_new.tableSourceToDestination(ds_args,dm_args,db_dimen_args,etl_source_args,etl_insert_args)
+            else:
+                new_q = self.where_q(val_id_q,max_dimens)
+                etl_new.tableSourceToDestination(ds_args, dm_args, db_dimen_args,etl_source_args+new_q,etl_insert_args)
+
+            uptodate_info = False
+            print(counter_update)
+            if counter_update == 1:
+                config.execute(qGetBatchInfo)
+                batch_val = config.fetchone()
+                if batch_val[0] is None:
+                    new_batch = 1
+
+                else:
+                    new_batch = batch_val[0]+1
+
+
+                print("INSERT INTO update_log(update_date,batch) VALUES('{0}',{1})".format(qGEtTimeNow,new_batch))
+                config.execute("INSERT INTO update_log(update_date,batch) VALUES('{0}',{1})".format(qGEtTimeNow,new_batch))
+                connection_to_config.commit()
+
+                config.execute("SELECT MAX(log_id) FROM update_log")
+                val = config.fetchone()
+                last_id_config = val[0]
+                print(last_id_config)
+
+
+            row_inserted = max_source - max_dimens
+            print(qInsertdetailConfig.format(last_id_config,table_name,min_dimens,max_dimens,row_inserted))
+            config.execute(qInsertdetailConfig.format(last_id_config,table_name,min_dimens,max_dimens,row_inserted))
+            connection_to_config.commit()
+
+
+
+    def update_val(self,dm,ds):
+        update_result = {}
+        get_max_tb_brg = self.get_max(ds,"tb_barang","id_barang")
+        get_max_det_trans = self.get_max(ds,"tb_detail_transaksi","id_detail_trans")
+        get_max_customer = self.get_max(ds,"tb_member","id_member")
+        get_max_cabang = self.get_max(ds,"tb_cabang","id_cabang")
+
+        get_max_dimensi_brg = self.get_max(dm,"tb_dimensi_barang","id_barang")
+        get_max_dimensi_transaksi = self.get_max(dm,"tb_dimensi_transaksi","id_detail_transaksi")
+        get_max_dimensi_pegawai = self.get_max(dm,"tb_dimensi_pegawai","id_pegawai")
+        get_max_dimensi_cabang = self.get_max(dm,"tb_dimensi_cabang","id_cabang")
+        get_max_dimensi_customer = self.get_max(dm, "tb_dimensi_customer", "id_customer")
+
+        if get_max_tb_brg > get_max_dimensi_brg:
+            new_q =  "SELECT COUNT(*) FROM tb_barang WHERE id_barang > {0}".format(get_max_dimensi_brg)
+            update_result["tb_barang"] = self.ret_update_return_result(ds,new_q)
+
+        if get_max_det_trans > get_max_dimensi_transaksi:
+            new_q2 = "SELECT COUNT(*) FROM tb_detail_transaksi WHERE id_detail_trans > {0}".format(get_max_dimensi_transaksi)
+            update_result["tb_detail_transaksi"] = self.ret_update_return_result(ds,new_q2)
+
+
+        if get_max_customer > get_max_dimensi_customer:
+            new_q3 = "SELECT COUNT(*) FROM  tb_member WHERE id_member > {0}".format(get_max_dimensi_customer)
+            update_result["tb_customer"] = self.ret_update_return_result(ds,new_q3)
+
+        if get_max_cabang >get_max_dimensi_cabang:
+            new_q4 = "SELECT COUNT(*) FROM tb_cabang WHERE id_cabang > {0}".format(get_max_dimensi_cabang)
+            update_result["tb_cabang"] = self.ret_update_return_result(ds,new_q4)
+
+        return update_result
+
+
+    def ret_update_return_result(self,ds,q):
+        ds.execute(q)
+        n_val = ds.fetchone()
+        f_val = n_val[0]
+        return f_val
+
+
+    def get_last_update(self,config):
+        config.execute("SELECT MAX(update_date),MAX(batch) FROM update_log")
+        val = config.fetchone()
+        value_tgl = str(val[0])
+        value_batch = val[1]
+
+        return value_tgl,value_batch
 
 
 def main():

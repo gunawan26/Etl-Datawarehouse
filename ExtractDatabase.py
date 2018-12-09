@@ -35,7 +35,7 @@ class MyEtl():
                         'SUM(jmlh_brg) AS total_terbeli, SUM(jmlh_brg*harga_barang) AS total_pendapatan '\
                         'FROM tb_dimensi_transaksi GROUP BY id_barang,id_cabang,tahun'
 
-    qDimensiTransCustomerBulan = 'SELECT id_user,id_barang, MONTH(tgl_transaksi) AS bulan, YEAR(tgl_transaksi),SUM(jmlh_brg) AS banyak_brg,'\
+    qDimensiTransCustomerBulan = 'SELECT id_user,id_barang, MONTH(tgl_transaksi) AS bulan, YEAR(tgl_transaksi),id_cabang,'\
                                 'SUM(jmlh_brg*harga_barang) AS total_belanja FROM tb_dimensi_transaksi '\
                                 'GROUP BY id_barang,id_cabang,bulan'
 
@@ -56,7 +56,7 @@ class MyEtl():
 
     qInsertCabang = "INSERT INTO tb_dimensi_cabang(id_cabang,nama_cabang, alamat_kab_prov) VALUES('%i','%s','%s');"
 
-    qInsertBulan = "INSERT INTO tb_dimensi_bulan VALUES('%s');"
+    qInsertBulan = "INSERT INTO tb_dimensi_bulan VALUES(Null,   '%s');"
 
     qInsertTransaksi = "INSERT INTO tb_dimensi_transaksi(id_transaksi,id_user,id_detail_transaksi,id_barang,harga_barang,jmlh_brg,id_cabang,id_pegawai,tgl_transaksi) " \
                        "VALUES('%i','%i','%i','%i','%2.f','%i','%i','%i','%s');"
@@ -67,7 +67,7 @@ class MyEtl():
     qInsertFaktaTransaksiTahun = "INSERT INTO tb_fakta_tahun(id_barang,tahun,id_cabang,total_brg_terjual,total_pendapatan)"\
                             "values('%i','%i','%i','%2.f','%2.f')"
 
-    qInsertFaktaCustomer = "INSERT INTO tb_fakta_customer(id_customer,id_barang,id_bulan,tahun,banyak_brg,total_belanja)"\
+    qInsertFaktaCustomer = "INSERT INTO tb_fakta_customer(id_customer,id_barang,id_bulan,tahun,id_cabang,total_belanja)"\
                             "VALUES('%i','%i','%i','%i','%i','%2.f')"
 
     qInsertFaktaPegawai = "INSERT INTO tb_fakta_pegawai(id_pegawai,total_transaksi,id_bulan,tahun,id_cabang,banyak_transaksi)"\
@@ -80,20 +80,20 @@ class MyEtl():
                     "AND TABLE_NAME NOT IN (SELECT 'tb_dimensi_barang' UNION SELECT 'tb_dimensi_cabang' UNION SELECT 'tb_dimensi_bulan' "\
                     "UNION SELECT 'tb_dimensi_customer' UNION SELECT 'tb_dimensi_pegawai' UNION SELECT 'tb_dimensi_transaksi');"
 
-    qSelectBulan = 'SELECT "januari" AS bulan UNION SELECT "februari" UNION SELECT "maret" UNION SELECT "april" '\
-                    'UNION SELECT "mei" UNION SELECT "juni" UNION SELECT "juli" UNION SELECT "agustus" '\
-                    'UNION SELECT "september" UNION SELECT "oktober" '\
-                    'UNION SELECT "november" '\
-                    'UNION SELECT "desember" '
-
-    def generate_tb_bulan(self,dm, dbdimen, query):
-
-        with open('bulan.txt', 'r') as f:
-            val = f.read().splitlines()
-            for item in val:
-                x = (tuple([int(i) if i.isdigit() else i for i in item.split(",")]))
-                dm.execute(query % x)
-                dbdimen.commit()
+    qSelectBulan = "SELECT 'januari' AS bulan UNION SELECT 'februari' UNION SELECT 'maret' UNION SELECT 'april' "\
+                    "UNION SELECT 'mei' UNION SELECT 'juni' UNION SELECT 'juli' UNION SELECT 'agustus' "\
+                    "UNION SELECT 'september' UNION SELECT 'oktober' "\
+                    "UNION SELECT 'november' "\
+                    "UNION SELECT 'desember' "
+    #
+    # def generate_tb_bulan(self,dm, dbdimen, query):
+    #
+    #     with open('bulan.txt', 'r') as f:
+    #         val = f.read().splitlines()
+    #         for item in val:
+    #             x = (tuple([int(i) if i.isdigit() else i for i in item.split(",")]))
+    #             dm.execute(query % x)
+    #             dbdimen.commit()
 
 
     def get_table_value(self,cursor_args, query_args):
@@ -107,6 +107,7 @@ class MyEtl():
         datas = cursorArgs
 
         for data in datas.fetchall():
+            print(queryInsert%data)
             cursorDm.execute(queryInsert%data)
             dbConnection.commit()
 
@@ -127,22 +128,22 @@ class MyEtl():
 
 
 
-    def main(self,ds,dm,dbDimen):
-
-        dm.execute("SET FOREIGN_KEY_CHECKS=0;")
-        dbDimen.commit()
-        self.truncateDatabase(dm,self.qTruncateData)
-        dbDimen.commit()
-        dm.execute("SET FOREIGN_KEY_CHECKS=1;")
-        self.tableSourceToDestination(ds, dm, dbDimen, self.qBarang, self.qInsertBarang)
-        self.tableSourceToDestination(ds, dm, dbDimen, self.qCustomer, self.qInsertCustomer)
-        self.tableSourceToDestination(ds, dm, dbDimen, self.qPegawai, self.qInsertPegawai)
-        self.tableSourceToDestination(ds, dm, dbDimen, self.qCabang, self.qInsertCabang)
-        self.generate_tb_bulan(dm, dbDimen, self.qInsertBulan)
-        self.tableSourceToDestination(ds, dm, dbDimen, self.qTransaksi, self.qInsertTransaksi)
-        self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransBulan, self.qInsertFaktaTransaksiBulan)
-        self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahun, self.qInsertFaktaTransaksiTahun)
-        self.tableSourceToDestination(dm, dm ,dbDimen, self.qDimensiTransCustomerBulan,self.qInsertFaktaCustomer)
-        self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransPegawai, self.qInsertFaktaPegawai)
-        self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahunPerCabang,self.qInsertFaktaTransaksiTahunPerCabang)
+    # def main(self,ds,dm,dbDimen):
+    #
+    #     dm.execute("SET FOREIGN_KEY_CHECKS=0;")
+    #     dbDimen.commit()
+    #     self.truncateDatabase(dm,self.qTruncateData)
+    #     dbDimen.commit()
+    #     dm.execute("SET FOREIGN_KEY_CHECKS=1;")
+    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qBarang, self.qInsertBarang)
+    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qCustomer, self.qInsertCustomer)
+    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qPegawai, self.qInsertPegawai)
+    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qCabang, self.qInsertCabang)
+    #
+    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qTransaksi, self.qInsertTransaksi)
+    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransBulan, self.qInsertFaktaTransaksiBulan)
+    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahun, self.qInsertFaktaTransaksiTahun)
+    #     self.tableSourceToDestination(dm, dm ,dbDimen, self.qDimensiTransCustomerBulan,self.qInsertFaktaCustomer)
+    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransPegawai, self.qInsertFaktaPegawai)
+    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahunPerCabang,self.qInsertFaktaTransaksiTahunPerCabang)
 
