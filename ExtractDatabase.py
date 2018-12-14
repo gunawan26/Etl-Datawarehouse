@@ -8,7 +8,7 @@ qtruncate_all_dimen = "SELECT CONCAT('TRUNCATE TABLE ', TABLE_NAME) FROM INFORMA
 qtruncate_all_config = "select concat('TRUNCATE TABLE ',TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'db_config_data_w' "
 
 
-#
+
 class MyEtl():
 
 
@@ -113,14 +113,6 @@ class MyEtl():
         "INNER JOIN tb_dimensi_bulan USING (id_bulan) " \
         "INNER JOIN tb_dimensi_cabang USING (id_cabang) " \
         "ORDER BY tahun,id_bulan"
-    # def generate_tb_bulan(self,dm, dbdimen, query):
-    #
-    #     with open('bulan.txt', 'r') as f:
-    #         val = f.read().splitlines()
-    #         for item in val:
-    #             x = (tuple([int(i) if i.isdigit() else i for i in item.split(",")]))
-    #             dm.execute(query % x)
-    #             dbdimen.commit()
 
 
     def get_table_value(self,cursor_args, query_args):
@@ -182,36 +174,4 @@ class MyEtl():
         pass
 
 
-
-    # def export_penjualan_tahunan(self,dm):
-    #
-    #
-    #
-    #     export_tahunan = self.get_table_value(dm,q)
-    #
-    #     return export_tahunan
-
-
-
-
-
-
-    # def main(self,ds,dm,dbDimen):
-    #
-    #     dm.execute("SET FOREIGN_KEY_CHECKS=0;")
-    #     dbDimen.commit()
-    #     self.truncateDatabase(dm,self.qTruncateData)
-    #     dbDimen.commit()
-    #     dm.execute("SET FOREIGN_KEY_CHECKS=1;")
-    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qBarang, self.qInsertBarang)
-    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qCustomer, self.qInsertCustomer)
-    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qPegawai, self.qInsertPegawai)
-    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qCabang, self.qInsertCabang)
-    #
-    #     self.tableSourceToDestination(ds, dm, dbDimen, self.qTransaksi, self.qInsertTransaksi)
-    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransBulan, self.qInsertFaktaTransaksiBulan)
-    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahun, self.qInsertFaktaTransaksiTahun)
-    #     self.tableSourceToDestination(dm, dm ,dbDimen, self.qDimensiTransCustomerBulan,self.qInsertFaktaCustomer)
-    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransPegawai, self.qInsertFaktaPegawai)
-    #     self.tableSourceToDestination(dm, dm, dbDimen, self.qDimensiTransTahunPerCabang,self.qInsertFaktaTransaksiTahunPerCabang)
 

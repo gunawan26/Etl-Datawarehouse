@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a19f51e4-9fca-4541-98cf-17bdcd56473f" name="Default Changelist" comment="">
+    <list default="true" id="a19f51e4-9fca-4541-98cf-17bdcd56473f" name="Default Changelist" comment="tambah fitur">
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/1017103.driveupload" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/1019699.driveupload" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/1057312.driveupload" afterDir="false" />
@@ -647,14 +647,11 @@
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/9988190.driveupload" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/9993814.driveupload" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.tmp.drivedownload/9999082.driveupload" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WriteExcel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-gauge.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataWarehouse_view.fbp" beforeDir="false" afterPath="$PROJECT_DIR$/DataWarehouse_view.fbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatawarehouseGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/DatawarehouseGui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EventHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/EventHandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExtractDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExtractDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UpdateConfiguration.py" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateConfiguration.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -683,7 +680,7 @@
           <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.27" value="1" />
-          <entry key="project.open.time.3" value="5" />
+          <entry key="project.open.time.3" value="6" />
           <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.4" value="6" />
@@ -692,7 +689,7 @@
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="92" />
+          <entry key="project.opened" value="93" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -712,14 +709,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="25" />
-          <entry key="py" value="31693" />
-          <entry key="txt" value="131" />
+          <entry key="py" value="32400" />
+          <entry key="txt" value="150" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="156" />
-          <entry key="Python" value="31693" />
+          <entry key="PLAIN_TEXT" value="175" />
+          <entry key="Python" value="32400" />
         </counts>
       </usages-collector>
     </session>
@@ -732,15 +729,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EventHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="260" column="29" selection-start-line="260" selection-start-column="29" selection-end-line="260" selection-end-column="29" />
+            <state relative-caret-position="174">
+              <caret line="462" column="79" selection-start-line="462" selection-start-column="79" selection-end-line="462" selection-end-column="79" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1544812420640" expanded="true" signature="4659:4661" ph="..." />
-                <marker date="1544812420640" expanded="true" signature="6745:7374" ph="..." />
-                <marker date="1544812420640" expanded="true" signature="10325:10334" ph="..." />
-                <marker date="1544812420640" expanded="true" signature="14016:14021" ph="..." />
-                <marker date="1544812420640" expanded="true" signature="14016:14122" ph="..." />
+                <element signature="e#5080#10986#0" />
+                <element signature="e#18234#18463#0" />
+                <marker date="1544823271223" expanded="true" signature="4202:4633" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="5169:5171" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="7248:7877" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="10828:10837" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="14781:14786" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="14781:14887" ph="..." />
+                <marker date="1544823271223" expanded="true" signature="22848:24102" ph="..." />
               </folding>
             </state>
           </provider>
@@ -749,8 +750,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/wx/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="3364" selection-start-line="3364" selection-end-line="3364" />
+            <state relative-caret-position="37247">
+              <caret line="2195" selection-start-line="2195" selection-end-line="2195" />
             </state>
           </provider>
         </entry>
@@ -770,7 +771,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2193">
+            <state relative-caret-position="17">
               <caret line="131" column="40" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="40" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -783,8 +784,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8823">
-              <caret line="521" selection-start-line="521" selection-end-line="521" />
+            <state relative-caret-position="478">
+              <caret line="50" column="22" lean-forward="true" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+              <folding>
+                <element signature="e#15563#18252#0" />
+                <element signature="e#15008#17772#0" />
+                <element signature="e#17992#18685#0" />
+                <element signature="e#18893#20124#0" />
+                <element signature="e#20331#22647#0" />
+                <element signature="e#22860#26315#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -792,8 +801,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ExtractDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1819">
-              <caret line="107" column="10" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
+            <state relative-caret-position="632">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
             </state>
           </provider>
         </entry>
@@ -823,14 +832,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>qSearchdataFaktaByid</find>
-      <find>qSearchdataFakta</find>
-      <find>qSearchCustomerFakta</find>
-      <find>search_customer_trans</find>
-      <find>onclick_cari_laporan_tahunan</find>
-      <find>search_tb_fakta_penjualan</find>
-      <find>combo</find>
-      <find>Prom</find>
       <find>qCustomer</find>
       <find>qInsertCustomer</find>
       <find>id_customer</find>
@@ -842,7 +843,6 @@
       <find>on_reload_tb_fakta_penjualan</find>
       <find>on_reload_daftar_trans_customer</find>
       <find>truncateallDatabase</find>
-      <find>customer</find>
       <find>tb_fakta_c</find>
       <find>qDimensiTransCustomerBulan</find>
       <find>Customer</find>
@@ -852,11 +852,23 @@
       <find>exce</find>
       <find>EVT_MENU</find>
       <find>Clear</find>
+      <find>customer</find>
+      <find>qSearchCustomerFakta</find>
+      <find>search_customer_trans</find>
       <find>bulan</find>
+      <find>qSearchTahun</find>
+      <find>qCustomerfakta</find>
+      <find>onclick_cari_laporan_tahunan</find>
+      <find>m_choice2Choices</find>
+      <find>m_choice2</find>
+      <find>Semua-Cabang</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -873,9 +885,9 @@
         <option value="$PROJECT_DIR$/test-gauge.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/UpdateConfiguration.py" />
+        <option value="$PROJECT_DIR$/WriteExcel.py" />
         <option value="$PROJECT_DIR$/ExtractDatabase.py" />
         <option value="$PROJECT_DIR$/DatawarehouseGui.py" />
-        <option value="$PROJECT_DIR$/WriteExcel.py" />
         <option value="$PROJECT_DIR$/EventHandler.py" />
       </list>
     </option>
@@ -892,7 +904,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -908,6 +919,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1060,12 +1072,21 @@
       <option name="presentableId" value="Default" />
       <updated>1541090757586</updated>
     </task>
+    <task id="LOCAL-00001" summary="tambah fitur">
+      <created>1544812577791</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1544812577791</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4965035" visible="true" weight="0.3106411" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4965035" weight="0.18572372" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5034965" side_tool="true" weight="0.1354924" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1075,7 +1096,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.0" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50033045" side_tool="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32885906" />
       <window_info anchor="bottom" id="Python Console" order="10" />
@@ -1105,6 +1126,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="tambah fitur" />
+    <option name="LAST_COMMIT_MESSAGE" value="tambah fitur" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1212,6 +1237,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/wx/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37247">
+          <caret line="2195" selection-start-line="2195" selection-end-line="2195" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1219,31 +1251,6 @@
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2193">
-          <caret line="131" column="40" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1544456704010" expanded="true" signature="842:847" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8823">
-          <caret line="521" selection-start-line="521" selection-end-line="521" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ExtractDatabase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="107" column="10" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1259,24 +1266,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/ProgramData/Miniconda3/Lib/site-packages/wx/core.py">
+    <entry file="file://$PROJECT_DIR$/ExtractDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="3364" selection-start-line="3364" selection-end-line="3364" />
+        <state relative-caret-position="632">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateConfiguration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="131" column="40" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <marker date="1544456704010" expanded="true" signature="842:847" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatawarehouseGui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="50" column="22" lean-forward="true" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
+          <folding>
+            <element signature="e#15563#18252#0" />
+            <element signature="e#15008#17772#0" />
+            <element signature="e#17992#18685#0" />
+            <element signature="e#18893#20124#0" />
+            <element signature="e#20331#22647#0" />
+            <element signature="e#22860#26315#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EventHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="260" column="29" selection-start-line="260" selection-start-column="29" selection-end-line="260" selection-end-column="29" />
+        <state relative-caret-position="174">
+          <caret line="462" column="79" selection-start-line="462" selection-start-column="79" selection-end-line="462" selection-end-column="79" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1544812420640" expanded="true" signature="4659:4661" ph="..." />
-            <marker date="1544812420640" expanded="true" signature="6745:7374" ph="..." />
-            <marker date="1544812420640" expanded="true" signature="10325:10334" ph="..." />
-            <marker date="1544812420640" expanded="true" signature="14016:14021" ph="..." />
-            <marker date="1544812420640" expanded="true" signature="14016:14122" ph="..." />
+            <element signature="e#5080#10986#0" />
+            <element signature="e#18234#18463#0" />
+            <marker date="1544823271223" expanded="true" signature="4202:4633" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="5169:5171" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="7248:7877" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="10828:10837" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="14781:14786" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="14781:14887" ph="..." />
+            <marker date="1544823271223" expanded="true" signature="22848:24102" ph="..." />
           </folding>
         </state>
       </provider>

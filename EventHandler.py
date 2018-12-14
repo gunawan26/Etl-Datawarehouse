@@ -37,7 +37,7 @@ qSearchBulanFakta = 'SELECT tahun,tb_dimensi_bulan.`nama_bulan`,tb_dimensi_caban
                     'GROUP BY id_cabang,id_bulan ORDER BY id_cabang,tahun,id_bulan '
 
 
-qCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer` AS nama,tb_dimensi_bulan.`nama_bulan` AS bulan,tahun,tb_dimensi_cabang.`nama_cabang`,SUM(total_belanja) '\
+qCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer` AS nama,id_customer,tb_dimensi_bulan.`nama_bulan` AS bulan,tahun,tb_dimensi_cabang.`nama_cabang`,SUM(total_belanja) '\
                     'FROM tb_fakta_customer '\
                     'INNER JOIN tb_dimensi_customer USING (id_customer) '\
                     'INNER JOIN tb_dimensi_barang USING (id_barang) '\
@@ -45,7 +45,7 @@ qCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer` AS nama,tb_dimensi_
                     'INNER JOIN tb_dimensi_cabang USING (id_cabang) '\
                     'GROUP BY id_cabang,bulan,id_customer '
 
-qSearchCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer` AS nama,tb_dimensi_bulan.`nama_bulan` AS bulan,tahun,tb_dimensi_cabang.`nama_cabang`,SUM(total_belanja) '\
+qSearchCustomerFakta = 'SELECT tb_dimensi_customer.`nama_customer` AS nama,id_customer,tb_dimensi_bulan.`nama_bulan` AS bulan,tahun,tb_dimensi_cabang.`nama_cabang`,SUM(total_belanja) '\
                     'FROM tb_fakta_customer '\
                     'INNER JOIN tb_dimensi_customer USING (id_customer) '\
                     'INNER JOIN tb_dimensi_barang USING (id_barang) '\
@@ -75,7 +75,24 @@ qSearchdataFaktaByid = 'SELECT tahun,tb_dimensi_bulan.`nama_bulan`,tb_dimensi_ca
                     'INNER JOIN tb_dimensi_cabang USING (id_cabang) WHERE tahun = {0} '\
                     'AND tb_dimensi_bulan.nama_bulan = "{1}" AND tb_dimensi_cabang.nama_cabang = "{2}"' \
 
+class DetailCustomer(DatawarehouseGui.Frame_detail_cust):
 
+    def __init__(self,result):
+
+        DatawarehouseGui.Frame_detail_cust.__init__(self,parent=None)
+
+
+        for x,item in enumerate(result,start=1):
+            new_val = list(item)
+            new_val.insert(0, x)
+            self.m_dataViewList_detail_customer.AppendItem(new_val)
+            self.Exit_det.Bind(wx.EVT_BUTTON,self.onExit)
+
+        self.Show()
+
+
+    def onExit(self,event):
+        self.Close(force=False)
 
 class DetailBulan(DatawarehouseGui.detail_bln_frame):
 
@@ -311,13 +328,20 @@ class eventHandler(DatawarehouseGui.MyFrame1):
         list_cabang = (self.return_list(dm,qListCabang))
         list_cabang.insert(0,"Semua-Cabang")
         self.m_choice2.Set(list_cabang)
+        self.m_combo_bln.Set(bulan)
+        self.m_combo_bln1.Set(bulan)
+        self.m_choice21.Set(list_cabang)
 
         """Report untuk Transaksi Tahun"""
         self.daftar_trans_tahun(dm,qListTahun)
         self.daftar_transaksi_customer(dm,qCustomerFakta)
         self.Bind(wx.EVT_BUTTON, lambda event: self.onclick_cari_laporan_tahunan(event, dm, qSearchTahun),self.cari_penjualan_tahun)
+
         self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, lambda event:self.onClickrow_trans_tahun(event,dm,qCariCabang),self.m_dataViewList_penjualan_tahunan)
         self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, lambda event: self.onClickrow_trans_bulan(event, dm, qCariCabang),self.m_dataViewList_trans_bulan)
+        self.Bind(wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED,lambda event: self.onClickrow_trans_customer(event, dm), self.m_dataViewList_customer)
+
+
         self.cari_button.Bind(wx.EVT_BUTTON, lambda event:self.search_tb_fakta_penjualan(event,dm,qSearchdataFakta))
         self.Bind(wx.EVT_MENU,self.on_open_etlmenu,self.etl_menu)
         self.Bind(wx.EVT_MENU,lambda event :self.on_exit(event),self.m_menuItem_exit)
@@ -415,7 +439,8 @@ class eventHandler(DatawarehouseGui.MyFrame1):
 
         bulan_args = self.m_combo_bln.GetValue()
         thn_args =self.m_thn_combo.GetValue()
-
+        cabang_args = self.m_choice21.GetString(self.m_choice21.GetCurrentSelection())
+        print(cabang_args)
         if bulan_args == "":
             wx.MessageBox('Input Bulan Tidak Lengkap', 'Warning', wx.OK | wx.ICON_WARNING)
 
@@ -425,28 +450,35 @@ class eventHandler(DatawarehouseGui.MyFrame1):
 
             else:
 
-                if bulan_args != "":
-                    query.append("tb_dimensi_bulan.nama_bulan= '%s'"%bulan_args)
+                if cabang_args == "-" or cabang_args == "":
+                    wx.MessageBox('Input Cabang Tidak Lengkap', 'Warning', wx.OK | wx.ICON_WARNING)
 
-                if thn_args != "":
-                    query.append("tahun = %d"% int(thn_args))
+                else:
+                    if bulan_args != "":
+                        query.append("tb_dimensi_bulan.nama_bulan= '%s'"%bulan_args)
 
-                if len(query) > 0:
-                    query.insert(0,"where ")
-                    q_final = self.merge_query(query_args, query)
-                    q_final = q_final+ ' GROUP BY id_cabang,tahun,id_bulan ORDER BY id_cabang'
-                    print(q_final)
-                    cur.execute(q_final)
-                    self.m_dataViewList_trans_bulan.DeleteAllItems()
-                    final_val = cur
-                    #print(final_val.fetchall()[0][0])
-                    for x, item in enumerate(final_val.fetchall(), start=1):
-                        print(item[0])
-                        if item[0] is not None:
-                            list_item = list(item)
-                            list_item.insert(0, x)
-                            print(list_item)
-                            self.m_dataViewList_trans_bulan.AppendItem(list_item)
+                    if thn_args != "":
+                        query.append("tahun = %d"% int(thn_args))
+
+                    if cabang_args != 'Semua-Cabang':
+                        query.append("tb_dimensi_cabang.nama_cabang = '{0}'".format(cabang_args))
+
+                    if len(query) > 0:
+                        query.insert(0,"where ")
+                        q_final = self.merge_query(query_args, query)
+                        q_final = q_final+ ' GROUP BY id_cabang,tahun,id_bulan ORDER BY id_cabang'
+                        print(q_final)
+                        cur.execute(q_final)
+                        self.m_dataViewList_trans_bulan.DeleteAllItems()
+                        final_val = cur
+                        #print(final_val.fetchall()[0][0])
+                        for x, item in enumerate(final_val.fetchall(), start=1):
+                            print(item[0])
+                            if item[0] is not None:
+                                list_item = list(item)
+                                list_item.insert(0, x)
+                                print(list_item)
+                                self.m_dataViewList_trans_bulan.AppendItem(list_item)
 
 
 
@@ -554,6 +586,31 @@ class eventHandler(DatawarehouseGui.MyFrame1):
 
 
 
+        pass
+
+
+    def onClickrow_trans_customer(self,event,cursor):
+        q = "SELECT tb_dimensi_customer.`nama_customer` AS nama,id_customer,tb_dimensi_bulan.`nama_bulan` AS bulan,tahun,tb_dimensi_barang.`nama_barang`,banyak_brg, "\
+          "total_belanja,tb_dimensi_cabang.nama_cabang FROM tb_fakta_customer "\
+          "INNER JOIN tb_dimensi_customer USING (id_customer) "\
+          "INNER JOIN tb_dimensi_barang USING (id_barang) "\
+          "INNER JOIN tb_dimensi_bulan USING (id_bulan) "\
+          "INNER JOIN tb_dimensi_cabang USING (id_cabang) "\
+            "WHERE id_customer = {0} AND tb_dimensi_bulan.`nama_bulan` = '{1}' AND tahun = {2} AND nama_cabang = '{3}' "\
+            "GROUP BY id_cabang,tahun,id_bulan,id_barang ORDER BY id_bulan"
+
+        val = self.m_dataViewList_customer.GetSelectedRow()
+        id = self.m_dataViewList_customer.GetValue(val, 2)
+        bulan = self.m_dataViewList_customer.GetValue(val, 3)
+        thn = self.m_dataViewList_customer.GetValue(val, 4)
+        cabang = self.m_dataViewList_customer.GetValue(val, 5)
+        print(q.format(id, bulan, thn,cabang))
+        cursor.execute(q.format(id, bulan, thn,cabang))
+        val_cur = cursor
+
+        return_val = val_cur.fetchall()
+        print(return_val)
+        cus = DetailCustomer(return_val)
         pass
 
 

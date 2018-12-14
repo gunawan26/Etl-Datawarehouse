@@ -129,7 +129,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_staticText21.Wrap( -1 )
 		bSizer51.Add( self.m_staticText21, 0, wx.ALL, 5 )
 		
-		m_combo_blnChoices = ['januari','februari','maret','april','mei','juni','juli','agustus','september','november','desember']
+		m_combo_blnChoices = []
 		self.m_combo_bln = wx.ComboBox( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 150,-1 ), m_combo_blnChoices, 0 )
 		bSizer51.Add( self.m_combo_bln, 0, wx.ALL, 5 )
 		
@@ -149,6 +149,22 @@ class MyFrame1 ( wx.Frame ):
 		
 		
 		sbSizer3.Add( bSizer511, 0, 0, 5 )
+		
+		bSizer622 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_staticText2211 = wx.StaticText( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Cabang", wx.DefaultPosition, wx.Size( 200,-1 ), 0 )
+		self.m_staticText2211.Wrap( -1 )
+		bSizer622.Add( self.m_staticText2211, 0, wx.ALL, 5 )
+		
+		m_choice21Choices = [ u"-" ]
+		self.m_choice21 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 150,-1 ), m_choice21Choices, 0 )
+		self.m_choice21.SetSelection( 0 )
+		self.m_choice21.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+		
+		bSizer622.Add( self.m_choice21, 0, wx.ALL, 5 )
+		
+		
+		sbSizer3.Add( bSizer622, 0, 0, 5 )
 		
 		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -216,7 +232,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_staticText212.Wrap( -1 )
 		bSizer512.Add( self.m_staticText212, 0, wx.ALL, 5 )
 		
-		m_combo_bln1Choices = ['januari','februari','maret','april','mei','juni','juli','agustus','september','november','desember']
+		m_combo_bln1Choices = []
 		self.m_combo_bln1 = wx.ComboBox( sbSizer31.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), m_combo_bln1Choices, 0 )
 		bSizer512.Add( self.m_combo_bln1, 0, wx.ALL, 5 )
 		
@@ -258,6 +274,7 @@ class MyFrame1 ( wx.Frame ):
 		
 		self.m_dataViewListNo1 = self.m_dataViewList_customer.AppendTextColumn( u"No" )
 		self.m_dataViewListNm_customer = self.m_dataViewList_customer.AppendTextColumn( u"Nama Customer" )
+		self.m_dataViewListColumn38 = self.m_dataViewList_customer.AppendTextColumn( u"ID customer" )
 		self.m_dataViewListCBulan1 = self.m_dataViewList_customer.AppendTextColumn( u"Bulan" )
 		self.m_dataViewListTahun1 = self.m_dataViewList_customer.AppendTextColumn( u"Tahun" )
 		self.m_dataViewListCabang1 = self.m_dataViewList_customer.AppendTextColumn( u"Cabang" )
@@ -297,6 +314,64 @@ class MyFrame1 ( wx.Frame ):
 		self.SetMenuBar( self.m_menubar1 )
 		
 		self.m_statusBar1 = self.CreateStatusBar( 1, 0, wx.ID_ANY )
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.Bind( wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, self.test, id = wx.ID_ANY )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def test( self, event ):
+		event.Skip()
+	
+
+###########################################################################
+## Class Frame_detail_cust
+###########################################################################
+
+class Frame_detail_cust ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 894,444 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_INACTIVEBORDER ) )
+		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
+		
+		bSizer24 = wx.BoxSizer( wx.VERTICAL )
+		
+		sbSizer12 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Detail Penjualan Per Cabang" ), wx.VERTICAL )
+		
+		sbSizer12.SetMinSize( wx.Size( 700,-1 ) ) 
+		self.m_dataViewList_detail_customer = wx.dataview.DataViewListCtrl( sbSizer12.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_dataViewList_detail_customer.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 90, False, wx.EmptyString ) )
+		self.m_dataViewList_detail_customer.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BACKGROUND ) )
+		self.m_dataViewList_detail_customer.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_INACTIVEBORDER ) )
+		
+		self.m_dataViewListNo2 = self.m_dataViewList_detail_customer.AppendTextColumn( u"No" )
+		self.m_dataViewListNama_customer = self.m_dataViewList_detail_customer.AppendTextColumn( u"Nama" )
+		self.m_dataViewListID_cust = self.m_dataViewList_detail_customer.AppendTextColumn( u"ID Customer" )
+		self.m_dataViewListBln = self.m_dataViewList_detail_customer.AppendTextColumn( u"Bulan" )
+		self.m_dataViewListTahun = self.m_dataViewList_detail_customer.AppendTextColumn( u"Tahun" )
+		self.m_dataViewListColumn41 = self.m_dataViewList_detail_customer.AppendTextColumn( u"Nama Barang" )
+		self.m_dataViewListBnykBrg = self.m_dataViewList_detail_customer.AppendTextColumn( u"Banyak barang" )
+		self.m_dataViewListTotal_belanja = self.m_dataViewList_detail_customer.AppendTextColumn( u"Total Transaksi" )
+		self.m_dataViewListNama_cabang = self.m_dataViewList_detail_customer.AppendTextColumn( u"Nama Cabang" )
+		sbSizer12.Add( self.m_dataViewList_detail_customer, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.Exit_det = wx.Button( sbSizer12.GetStaticBox(), wx.ID_ANY, u"Exit", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer12.Add( self.Exit_det, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		
+		
+		bSizer24.Add( sbSizer12, 1, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer24 )
+		self.Layout()
 		
 		self.Centre( wx.BOTH )
 		
