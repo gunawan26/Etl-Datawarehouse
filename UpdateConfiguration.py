@@ -1,4 +1,5 @@
 import datetime
+from DatawarehouseGui import load_bar
 from ExtractDatabase import MyEtl
 
 
@@ -12,7 +13,21 @@ qInsertdetailConfig = "INSERT INTO tb_detail_update VALUES(NULL,{0},'{1}',{2},{3
 qGetBatchInfo = "SELECT MAX(batch) FROM update_log"
 
 #================== Analyze Table====================#
+class LoadingBar(load_bar):
 
+    def __init__(self,range_param):
+        load_bar.__init__(self, parent=None)
+        self.count = 0
+        self.m_gauge1.SetRange(range_param)
+        self.Show()
+
+
+    def load_data(self):
+        self.count +=1
+        self.m_gauge1.SetValue(self.count)
+        if self.count == 7:
+            self.Close()
+        pass
 
 
 class UpdateConfig:
@@ -26,6 +41,15 @@ class UpdateConfig:
         self.source = source
 
         #self.on_update(source,dimen,connection_to_dimen,config)
+        pass
+
+    def truncate_all(self):
+        print("masuk")
+        etl_new = MyEtl()
+
+        etl_new.truncateallDatabase(self.dimen,self.config,self.connection_to_dimen,self.connection_to_config)
+
+
         pass
 
     def get_max(self,db_source_args,table_name_args,id_name_args):
@@ -108,7 +132,7 @@ class UpdateConfig:
             etl.tableSourceToDestination(dm, dm ,dbdimen, etl.qSelectBulan,etl.qInsertBulan)
             print("successful insert table dimensi bulan")
 
-        self.is_update(get_max_customer,get_max_dimensi_customer, getmin_dimensi_customer,ds,dm,dbdimen,etl.qCustomer,etl.qInsertCustomer,"id_customer","tb_dimensi_customer")
+        self.is_update(get_max_customer,get_max_dimensi_customer, getmin_dimensi_customer,ds,dm,dbdimen,etl.qCustomer,etl.qInsertCustomer,"id_member","tb_dimensi_customer")
         self.is_update(get_max_tb_brg,get_max_dimensi_brg, getmin_dimensi_barang,ds,dm,dbdimen,etl.qBarang,etl.qInsertBarang,"id_barang","tb_dimensi_barang")
         self.is_update(get_max_pegawai,get_max_dimensi_pegawai, getmin_dimensi_pegawai,ds,dm,dbdimen,etl.qPegawai,etl.qInsertPegawai,"id_pegawai","tb_dimensi_pegawai")
         self.is_update(get_max_cabang,get_max_dimensi_cabang, getmin_dimensi_cabang,ds,dm,dbdimen,etl.qCabang,etl.qInsertCabang,"id_cabang","tb_dimensi_cabang")
@@ -118,14 +142,23 @@ class UpdateConfig:
         print(uptodate_info)
         if uptodate_info == False:
             dm.execute("SET FOREIGN_KEY_CHECKS=0;")
+            load = LoadingBar(7)
+            print(load.m_gauge1.GetValue())
+            load.load_data()
             etl.truncateDatabase(dm,etl.qTruncateData)
+            load.load_data()
             etl.tableSourceToDestination(dm,dm,dbdimen,etl.qDimensiTransBulan,etl.qInsertFaktaTransaksiBulan)
+            load.load_data()
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransTahun, etl.qInsertFaktaTransaksiTahun)
+            load.load_data()
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransCustomerBulan, etl.qInsertFaktaCustomer)
+            load.load_data()
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransPegawai, etl.qInsertFaktaPegawai)
+            load.load_data()
             etl.tableSourceToDestination(dm, dm, dbdimen, etl.qDimensiTransTahunPerCabang,etl.qInsertFaktaTransaksiTahunPerCabang)
             dbdimen.commit()
-
+            load.load_data()
+            dbdimen.rollback()
         return uptodate_info
 
 
@@ -178,11 +211,12 @@ class UpdateConfig:
 
     def update_val(self,dm,ds):
         update_result = {}
+        print("inside update_val")
         get_max_tb_brg = self.get_max(ds,"tb_barang","id_barang")
         get_max_det_trans = self.get_max(ds,"tb_detail_transaksi","id_detail_trans")
         get_max_customer = self.get_max(ds,"tb_member","id_member")
         get_max_cabang = self.get_max(ds,"tb_cabang","id_cabang")
-
+        print(get_max_det_trans)
         get_max_dimensi_brg = self.get_max(dm,"tb_dimensi_barang","id_barang")
         get_max_dimensi_transaksi = self.get_max(dm,"tb_dimensi_transaksi","id_detail_transaksi")
         get_max_dimensi_pegawai = self.get_max(dm,"tb_dimensi_pegawai","id_pegawai")
@@ -225,9 +259,3 @@ class UpdateConfig:
         return value_tgl,value_batch
 
 
-def main():
-    UpdateConfig()
-
-
-if __name__ == "__main__":
-    main()

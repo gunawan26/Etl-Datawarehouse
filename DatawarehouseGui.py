@@ -77,10 +77,13 @@ class MyFrame1 ( wx.Frame ):
 		
 		sbSizer32.Add( bSizer62, 0, 0, 5 )
 		
-		bSizer621 = wx.BoxSizer( wx.VERTICAL )
+		bSizer621 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.cari_penjualan_tahun = wx.Button( sbSizer32.GetStaticBox(), wx.ID_ANY, u"Cari", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cari_penjualan_tahun = wx.Button( sbSizer32.GetStaticBox(), wx.ID_ANY, u"Cari", wx.DefaultPosition, wx.Size( 120,30 ), 0 )
 		bSizer621.Add( self.cari_penjualan_tahun, 0, wx.ALL, 5 )
+		
+		self.m_bpButton2 = wx.BitmapButton( sbSizer32.GetStaticBox(), wx.ID_ANY, wx.Bitmap( u"res/iconfinder_refresh-01_186390 (1).png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( -1,30 ), wx.BU_AUTODRAW|wx.RAISED_BORDER|wx.SIMPLE_BORDER )
+		bSizer621.Add( self.m_bpButton2, 0, wx.ALL, 5 )
 		
 		
 		sbSizer32.Add( bSizer621, 0, 0, 5 )
@@ -126,7 +129,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_staticText21.Wrap( -1 )
 		bSizer51.Add( self.m_staticText21, 0, wx.ALL, 5 )
 		
-		m_combo_blnChoices = []
+		m_combo_blnChoices = ['januari','februari','maret','april','mei','juni','juli','agustus','september','november','desember']
 		self.m_combo_bln = wx.ComboBox( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 150,-1 ), m_combo_blnChoices, 0 )
 		bSizer51.Add( self.m_combo_bln, 0, wx.ALL, 5 )
 		
@@ -147,10 +150,13 @@ class MyFrame1 ( wx.Frame ):
 		
 		sbSizer3.Add( bSizer511, 0, 0, 5 )
 		
-		bSizer6 = wx.BoxSizer( wx.VERTICAL )
+		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.cari_button = wx.Button( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Cari", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer6.Add( self.cari_button, 0, wx.ALL, 5 )
+		
+		self.m_bpButton21 = wx.BitmapButton( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.Bitmap( u"res/iconfinder_refresh-01_186390 (1).png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer6.Add( self.m_bpButton21, 0, wx.ALL, 5 )
 		
 		
 		sbSizer3.Add( bSizer6, 0, 0, 5 )
@@ -180,7 +186,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_panel2.SetSizer( bSizer3 )
 		self.m_panel2.Layout()
 		bSizer3.Fit( self.m_panel2 )
-		self.m_notebook1.AddPage( self.m_panel2, u"Laporan Penjualan Bulanan", True )
+		self.m_notebook1.AddPage( self.m_panel2, u"Laporan Penjualan Bulanan", False )
 		self.m_panel21_cust = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.ALWAYS_SHOW_SB )
 		self.m_panel21_cust.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 90, False, wx.EmptyString ) )
 		self.m_panel21_cust.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BACKGROUND ) )
@@ -197,9 +203,8 @@ class MyFrame1 ( wx.Frame ):
 		self.m_customer_static1.Wrap( -1 )
 		bSizer52.Add( self.m_customer_static1, 0, wx.ALL, 5 )
 		
-		m_cariBrg_combo1Choices = []
-		self.m_cariBrg_combo1 = wx.ComboBox( sbSizer31.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), m_cariBrg_combo1Choices, 0 )
-		bSizer52.Add( self.m_cariBrg_combo1, 0, wx.ALL, 5 )
+		self.m_nama_customer = wx.TextCtrl( sbSizer31.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), 0 )
+		bSizer52.Add( self.m_nama_customer, 0, wx.ALL, 5 )
 		
 		
 		sbSizer31.Add( bSizer52, 0, wx.EXPAND, 5 )
@@ -211,7 +216,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_staticText212.Wrap( -1 )
 		bSizer512.Add( self.m_staticText212, 0, wx.ALL, 5 )
 		
-		m_combo_bln1Choices = []
+		m_combo_bln1Choices = ['januari','februari','maret','april','mei','juni','juli','agustus','september','november','desember']
 		self.m_combo_bln1 = wx.ComboBox( sbSizer31.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), m_combo_bln1Choices, 0 )
 		bSizer512.Add( self.m_combo_bln1, 0, wx.ALL, 5 )
 		
@@ -232,10 +237,13 @@ class MyFrame1 ( wx.Frame ):
 		
 		sbSizer31.Add( bSizer5111, 0, 0, 5 )
 		
-		bSizer61 = wx.BoxSizer( wx.VERTICAL )
+		bSizer61 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.cari_button1_customer = wx.Button( sbSizer31.GetStaticBox(), wx.ID_ANY, u"Cari", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer61.Add( self.cari_button1_customer, 0, wx.ALL, 5 )
+		
+		self.m_bpButton22 = wx.BitmapButton( sbSizer31.GetStaticBox(), wx.ID_ANY, wx.Bitmap( u"res/iconfinder_refresh-01_186390 (1).png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer61.Add( self.m_bpButton22, 0, wx.ALL, 5 )
 		
 		
 		sbSizer31.Add( bSizer61, 0, 0, 5 )
@@ -266,7 +274,7 @@ class MyFrame1 ( wx.Frame ):
 		self.m_panel21_cust.SetSizer( bSizer31 )
 		self.m_panel21_cust.Layout()
 		bSizer31.Fit( self.m_panel21_cust )
-		self.m_notebook1.AddPage( self.m_panel21_cust, u"Laporan Pembelian Customer", False )
+		self.m_notebook1.AddPage( self.m_panel21_cust, u"Laporan Pembelian Customer", True )
 		
 		bSizer1.Add( self.m_notebook1, 1, wx.EXPAND, 5 )
 		
@@ -278,10 +286,13 @@ class MyFrame1 ( wx.Frame ):
 		self.etl_menu = wx.MenuItem( self.Option, wx.ID_ANY, u"proses ETL", wx.EmptyString, wx.ITEM_NORMAL )
 		self.Option.AppendItem( self.etl_menu )
 		
+		self.m_menuItem3 = wx.MenuItem( self.Option, wx.ID_ANY, u"Simpan Excel", wx.EmptyString, wx.ITEM_NORMAL )
+		self.Option.AppendItem( self.m_menuItem3 )
+		
 		self.m_menuItem_exit = wx.MenuItem( self.Option, wx.ID_ANY, u"Exit", wx.EmptyString, wx.ITEM_NORMAL )
 		self.Option.AppendItem( self.m_menuItem_exit )
 		
-		self.m_menubar1.Append( self.Option, u"Options" ) 
+		self.m_menubar1.Append( self.Option, u"Pilihan" ) 
 		
 		self.SetMenuBar( self.m_menubar1 )
 		
@@ -322,13 +333,6 @@ class detail_bln_frame ( wx.Frame ):
 		
 		sbSizer12.SetMinSize( wx.Size( 700,-1 ) ) 
 		bSizer39 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.m_staticText20 = wx.StaticText( sbSizer12.GetStaticBox(), wx.ID_ANY, u"Nama Barang", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.m_staticText20.Wrap( -1 )
-		bSizer39.Add( self.m_staticText20, 0, wx.ALL, 5 )
-		
-		self.m_textCtrl3 = wx.TextCtrl( sbSizer12.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		bSizer39.Add( self.m_textCtrl3, 0, wx.ALL, 5 )
 		
 		
 		sbSizer12.Add( bSizer39, 0, wx.EXPAND, 5 )
@@ -401,6 +405,49 @@ class error_Dialog_1 ( wx.Dialog ):
 		
 		
 		self.SetSizer( bSizer22 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class load_bar
+###########################################################################
+
+class load_bar ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 454,158 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer26 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_panel6 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 12,-1 ), wx.TAB_TRAVERSAL )
+		bSizer27.Add( self.m_panel6, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		self.m_staticText16 = wx.StaticText( self, wx.ID_ANY, u"Loading", wx.Point( -1,-1 ), wx.Size( 200,-1 ), 0|wx.TRANSPARENT_WINDOW )
+		self.m_staticText16.Wrap( -1 )
+		self.m_staticText16.SetFont( wx.Font( 10, 70, 90, 90, False, wx.EmptyString ) )
+		
+		bSizer27.Add( self.m_staticText16, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		bSizer26.Add( bSizer27, 0, 0, 5 )
+		
+		self.m_gauge1 = wx.Gauge( self, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL )
+		self.m_gauge1.SetValue( 0 ) 
+		self.m_gauge1.SetMinSize( wx.Size( 400,25 ) )
+		
+		bSizer26.Add( self.m_gauge1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
+		
+		self.SetSizer( bSizer26 )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
@@ -526,8 +573,14 @@ class Etl_setting ( wx.Frame ):
 		
 		bSizer28 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.update_btn = wx.Button( sbSizer10.GetStaticBox(), wx.ID_ANY, u"update", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.update_btn = wx.Button( sbSizer10.GetStaticBox(), wx.ID_ANY, u"Insert", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer28.Add( self.update_btn, 0, wx.ALL, 5 )
+		
+		self.m_button9 = wx.Button( sbSizer10.GetStaticBox(), wx.ID_ANY, u"Refresh", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer28.Add( self.m_button9, 0, wx.ALL, 5 )
+		
+		self.m_button_truncate = wx.Button( sbSizer10.GetStaticBox(), wx.ID_ANY, u"Truncate", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer28.Add( self.m_button_truncate, 0, wx.ALL, 5 )
 		
 		self.Cancel_btn_etl = wx.Button( sbSizer10.GetStaticBox(), wx.ID_ANY, u"cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer28.Add( self.Cancel_btn_etl, 0, wx.ALL, 5 )
